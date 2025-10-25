@@ -17,4 +17,10 @@ class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupViews() {
+    }
+    
+    private func setupConstraints() {
+    }
+    
 }
