@@ -24,7 +24,6 @@ class TaskListView: UIView {
     }
     
     private func setupTableView() {
-        
     }
     
     private func setupConstraints() {
