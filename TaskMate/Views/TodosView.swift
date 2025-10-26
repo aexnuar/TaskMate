@@ -9,7 +9,7 @@ import UIKit
 
 class TodosView: UIView {
     
-    private var tableView: UITableView!
+    var tableView: UITableView!
     
     init() {
         super.init(frame: .zero)
