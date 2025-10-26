@@ -18,10 +18,11 @@ class TodosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchTodos(from: Link.todoResponce.rawValue)
+        
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
     }
-
 }
 
 // MARK: - UITableViewDataSource
@@ -42,7 +43,21 @@ extension TodosViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension TodosViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        220
+    }
 }
 
 // MARK: - Private methods
+extension TodosViewController {
+    private func fetchTodos(from url: String) {
+        NetworkManager.shared.fetchTodoResponce(from: url) { result in
+            switch result {
+            case .success(let todoResponce):
+                TodoDataManager.shared.setTodos(with: todoResponce.todos)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}

@@ -15,6 +15,10 @@ class TodoDataManager {
     
     private init() {}
     
+    func setTodos(with todos: [Todo]) {
+        self.todos = todos
+    }
+    
     func getTodo(at indexPath: IndexPath) -> Todo {
         todos[indexPath.row]
     }

@@ -15,11 +15,13 @@ struct TodoResponce: Codable {
 struct Todo: Codable {
     let id: Int
     let todo: String
+    let todoDescription: String?
     let completed: Bool
     let userID: Int
+    let date: Date?
     
     enum CodingKeys: String, CodingKey {
-        case id, todo, completed
+        case id, todo, todoDescription, completed, date
         case userID = "userId"
     }
 }

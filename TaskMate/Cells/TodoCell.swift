@@ -9,6 +9,10 @@ import UIKit
 
 class TodoCell: UITableViewCell {
     
+    private var todo = UILabel(isBold: true, fontSize: 12, fontColor: .black)
+    private var todoDescription = UILabel(isBold: false, fontSize: 10, fontColor: .black)
+
+    
     static let identifier = "TodoCell"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -20,13 +24,22 @@ class TodoCell: UITableViewCell {
     }
     
     func configure(with todo: Todo) {
-        
+        self.todo.text = todo.todo
+        self.todoDescription.text = todo.todoDescription
     }
     
     private func setupViews() {
     }
     
     private func setupConstraints() {
+        let stack = UIStackView(views: [todo, todoDescription], axis: .vertical, spacing: 2)
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stack)
+        
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
     }
-    
 }
