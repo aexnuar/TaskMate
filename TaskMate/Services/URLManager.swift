@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum Link: String {
+    case todoResponce = "https://dummyjson.com/todos"
+}

@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct TodoResponce {
+struct TodoResponce: Codable {
     let todos: [Todo]
     let total, skip, limit: Int
 }
 
-struct Todo {
+struct Todo: Codable {
     let id: Int
     let todo: String
     let completed: Bool
