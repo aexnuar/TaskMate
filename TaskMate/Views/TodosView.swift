@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskListView: UIView {
+class TodosView: UIView {
     
     private var tableView: UITableView!
     

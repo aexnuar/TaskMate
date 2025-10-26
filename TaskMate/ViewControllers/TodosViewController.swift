@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskListViewController: UIViewController {
+class TodosViewController: UIViewController {
     
     override func loadView() {
     }
