@@ -9,7 +9,7 @@ import UIKit
 
 class TodosView: UIView {
     
-    var tableView = UITableView()
+    let tableView = UITableView()
     
     init() {
         super.init(frame: .zero)
@@ -26,7 +26,7 @@ class TodosView: UIView {
     private func setupTableView() {
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .customSeparatorGray
+        tableView.separatorColor = .customGrayForSeparator
         
     }
     

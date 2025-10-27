@@ -66,12 +66,13 @@ extension TodosViewController {
     private func setupNavigationBar() {
         title = "Задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always // check!
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .customBackgroundBlack
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.customFontWhite]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.customFontWhite]
+        navBarAppearance.backgroundColor = .customBlackForBackground
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.customWhiteForFont]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.customWhiteForFont]
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance

@@ -9,10 +9,12 @@ import UIKit
 
 class TodoCell: UITableViewCell {
     
-    private var todo = UILabel(isBold: true, fontSize: 16)
-    private var todoDescription = UILabel(isBold: false, fontSize: 10)
-    
     static let identifier = "TodoCell"
+    
+    private let todo = UILabel(isBold: true, fontSize: 16)
+    private let todoDescription = UILabel(isBold: false, fontSize: 10)
+    
+    private let iconButton = UIButton(type: .custom)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,27 +29,52 @@ class TodoCell: UITableViewCell {
     
     func configure(with todo: Todo) {
         self.todo.text = todo.todo
+        
         if todo.todoDescription != nil {
             self.todoDescription.text = todo.todoDescription
         } else {
-            self.todoDescription.text = "Заметки"
+            self.todoDescription.text = "Notes"
         }
-    }
     
+        setupIconButton(isCompleted: todo.completed)
+    }
+}
+
+// MARK: - Private methods
+extension TodoCell {
     private func setupViews() {
-        contentView.backgroundColor = .customBackgroundBlack
+        contentView.backgroundColor = .customBlackForBackground
     }
     
     private func setupConstraints() {
         let stack = UIStackView(views: [todo, todoDescription], axis: .vertical, spacing: 6)
         
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stack)
+        [iconButton, stack].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
-            stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            iconButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            iconButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            iconButton.widthAnchor.constraint(equalToConstant: 36),
+            iconButton.heightAnchor.constraint(equalToConstant: 36),
+            iconButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+            
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            stack.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor, constant: 8),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
+    
+    private func setupIconButton(isCompleted: Bool) {
+        let imageName = isCompleted ? "checkmark.circle" : "circle"
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .thin)
+        
+        iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .normal)
+        iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .selected) // check!
+        iconButton.tintColor = .customYellowForButton
+    }
+    
+    
 }
