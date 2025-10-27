@@ -14,7 +14,7 @@ class DateFormatterHelper {
     private init() {}
     
     func formatDate(from date: Date?) -> String {
-        guard let date = date else { return "" }
+        guard let date = date else { return "n/a" }
         
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

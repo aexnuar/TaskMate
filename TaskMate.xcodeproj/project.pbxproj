@@ -22,6 +22,7 @@
 		0B8FD4912EAE3E0200AABC6F /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4902EAE3E0200AABC6F /* UILabelExtension.swift */; };
 		0B8FD4932EAE454000AABC6F /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4922EAE454000AABC6F /* UIStackViewExtension.swift */; };
 		0B8FD4952EAF765B00AABC6F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */; };
+		0B8FD4992EAFBA6C00AABC6F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4982EAFBA6C00AABC6F /* DateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		0B8FD4902EAE3E0200AABC6F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		0B8FD4922EAE454000AABC6F /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
 		0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		0B8FD4982EAFBA6C00AABC6F /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				0B8FD47D2EAD251000AABC6F /* Cells */,
 				0B8FD47E2EAD251900AABC6F /* ViewControllers */,
 				0B8FD4962EAF863A00AABC6F /* Extentions */,
+				0B8FD4972EAFBA2500AABC6F /* Utilities */,
 				0B8FD47F2EAD252E00AABC6F /* Services */,
 				0B8FD4802EAD253D00AABC6F /* Resources */,
 				0B8FD4692EAD24EF00AABC6F /* Info.plist */,
@@ -156,6 +159,14 @@
 			children = (
 			);
 			path = Extentions;
+			sourceTree = "<group>";
+		};
+		0B8FD4972EAFBA2500AABC6F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0B8FD4982EAFBA6C00AABC6F /* DateFormatter.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +252,7 @@
 				0B8FD48E2EAE344500AABC6F /* TodoDataManager.swift in Sources */,
 				0B8FD48A2EAE2B2E00AABC6F /* NetworkManager.swift in Sources */,
 				0B8FD4862EAD2A8000AABC6F /* TodoCell.swift in Sources */,
+				0B8FD4992EAFBA6C00AABC6F /* DateFormatter.swift in Sources */,
 				0B8FD4882EAE272D00AABC6F /* TodoResponce.swift in Sources */,
 				0B8FD4912EAE3E0200AABC6F /* UILabelExtension.swift in Sources */,
 				0B8FD4792EAD24EF00AABC6F /* TaskMate.xcdatamodeld in Sources */,

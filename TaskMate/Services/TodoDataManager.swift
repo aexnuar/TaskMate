@@ -12,6 +12,7 @@ class TodoDataManager {
     static let shared = TodoDataManager()
     
     private var todos: [Todo] = []
+    private var completedTodos: [Todo] = []
     
     private init() {}
     

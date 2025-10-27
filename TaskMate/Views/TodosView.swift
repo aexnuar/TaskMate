@@ -11,11 +11,16 @@ class TodosView: UIView {
     
     let tableView = UITableView()
     
+    private let bottomView = UIView()
+    private let todosLabel = UILabel(isBold: false, fontSize: 12, fontColor: .customWhiteForFont, numberOfLines: 1)
+    private let addNewTodoButton = UIButton(type: .custom)
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .black
         
         setupTableView()
+        setupBottomView()
         setupConstraints()
     }
     
@@ -27,6 +32,10 @@ class TodosView: UIView {
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .customGrayForSeparator
+        
+    }
+    
+    private func setupBottomView() {
         
     }
     

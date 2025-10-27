@@ -12,7 +12,8 @@ class TodoCell: UITableViewCell {
     static let identifier = "TodoCell"
     
     private let todo = UILabel(isBold: true, fontSize: 16)
-    private let todoDescription = UILabel(isBold: false, fontSize: 10)
+    private let todoDescription = UILabel(isBold: false, fontSize: 12)
+    private let dateLabel = UILabel(isBold: false, fontSize: 12, numberOfLines: 1)
     
     private let iconButton = UIButton(type: .custom)
     
@@ -37,6 +38,9 @@ class TodoCell: UITableViewCell {
         }
     
         setupIconButton(isCompleted: todo.completed)
+        
+        let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
+        dateLabel.text = convertedDate
     }
 }
 
@@ -47,7 +51,7 @@ extension TodoCell {
     }
     
     private func setupConstraints() {
-        let stack = UIStackView(views: [todo, todoDescription], axis: .vertical, spacing: 6)
+        let stack = UIStackView(views: [todo, todoDescription, dateLabel], axis: .vertical, spacing: 6)
         
         [iconButton, stack].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -55,15 +59,14 @@ extension TodoCell {
         }
         
         NSLayoutConstraint.activate([
-            iconButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            iconButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            iconButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            iconButton.centerYAnchor.constraint(equalTo: todo.centerYAnchor),
             iconButton.widthAnchor.constraint(equalToConstant: 36),
             iconButton.heightAnchor.constraint(equalToConstant: 36),
-            iconButton.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
-            
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+
             stack.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor, constant: 8),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
     
@@ -75,6 +78,4 @@ extension TodoCell {
         iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .selected) // check!
         iconButton.tintColor = .customYellowForButton
     }
-    
-    
 }
