@@ -9,11 +9,11 @@ import UIKit
 
 class TodosView: UIView {
     
-    var tableView: UITableView!
+    var tableView = UITableView()
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .white
+        backgroundColor = .black
         
         setupTableView()
         setupConstraints()
@@ -24,9 +24,16 @@ class TodosView: UIView {
     }
     
     private func setupTableView() {
+        tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .customSeparatorGray
+        
     }
     
     private func setupConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(tableView)
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),

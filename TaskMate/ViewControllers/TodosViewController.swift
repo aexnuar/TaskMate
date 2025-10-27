@@ -19,6 +19,7 @@ class TodosViewController: UIViewController {
         super.viewDidLoad()
         
         fetchTodos(from: Link.todoResponce.rawValue)
+        setupNavigationBar()
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
@@ -44,7 +45,7 @@ extension TodosViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension TodosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        220
+        106
     }
 }
 
@@ -55,9 +56,24 @@ extension TodosViewController {
             switch result {
             case .success(let todoResponce):
                 TodoDataManager.shared.setTodos(with: todoResponce.todos)
+                self.mainView.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    private func setupNavigationBar() {
+        title = "Задачи"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .customBackgroundBlack
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.customFontWhite]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.customFontWhite]
+        
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
 }

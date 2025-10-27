@@ -12,6 +12,6 @@ extension UILabel {
         self.init()
         textAlignment = .left
         font = isBold ? .boldSystemFont(ofSize: fontSize) : .systemFont(ofSize: fontSize)
-        textColor = fontColor ?? .label
+        textColor = fontColor ?? .customFontWhite
     }
 }

@@ -21,6 +21,7 @@
 		0B8FD48E2EAE344500AABC6F /* TodoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD48D2EAE344500AABC6F /* TodoDataManager.swift */; };
 		0B8FD4912EAE3E0200AABC6F /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4902EAE3E0200AABC6F /* UILabelExtension.swift */; };
 		0B8FD4932EAE454000AABC6F /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4922EAE454000AABC6F /* UIStackViewExtension.swift */; };
+		0B8FD4952EAF765B00AABC6F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		0B8FD48D2EAE344500AABC6F /* TodoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataManager.swift; sourceTree = "<group>"; };
 		0B8FD4902EAE3E0200AABC6F /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		0B8FD4922EAE454000AABC6F /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
+		0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				0B8FD4902EAE3E0200AABC6F /* UILabelExtension.swift */,
 				0B8FD4922EAE454000AABC6F /* UIStackViewExtension.swift */,
+				0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				0B8FD48C2EAE2F7B00AABC6F /* URLManager.swift in Sources */,
 				0B8FD4842EAD289D00AABC6F /* TodosView.swift in Sources */,
 				0B8FD4782EAD24EF00AABC6F /* SceneDelegate.swift in Sources */,
+				0B8FD4952EAF765B00AABC6F /* UIColorExtension.swift in Sources */,
 				0B8FD48E2EAE344500AABC6F /* TodoDataManager.swift in Sources */,
 				0B8FD48A2EAE2B2E00AABC6F /* NetworkManager.swift in Sources */,
 				0B8FD4862EAD2A8000AABC6F /* TodoCell.swift in Sources */,

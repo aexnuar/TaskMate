@@ -9,14 +9,16 @@ import UIKit
 
 class TodoCell: UITableViewCell {
     
-    private var todo = UILabel(isBold: true, fontSize: 12, fontColor: .black)
-    private var todoDescription = UILabel(isBold: false, fontSize: 10, fontColor: .black)
-
+    private var todo = UILabel(isBold: true, fontSize: 16)
+    private var todoDescription = UILabel(isBold: false, fontSize: 10)
     
     static let identifier = "TodoCell"
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupViews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -25,21 +27,27 @@ class TodoCell: UITableViewCell {
     
     func configure(with todo: Todo) {
         self.todo.text = todo.todo
-        self.todoDescription.text = todo.todoDescription
+        if todo.todoDescription != nil {
+            self.todoDescription.text = todo.todoDescription
+        } else {
+            self.todoDescription.text = "Заметки"
+        }
     }
     
     private func setupViews() {
+        contentView.backgroundColor = .customBackgroundBlack
     }
     
     private func setupConstraints() {
-        let stack = UIStackView(views: [todo, todoDescription], axis: .vertical, spacing: 2)
+        let stack = UIStackView(views: [todo, todoDescription], axis: .vertical, spacing: 6)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stack)
+        contentView.addSubview(stack)
         
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }
