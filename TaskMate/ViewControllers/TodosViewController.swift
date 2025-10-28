@@ -57,6 +57,7 @@ extension TodosViewController {
             case .success(let todoResponce):
                 TodoDataManager.shared.setTodos(with: todoResponce.todos)
                 self.mainView.tableView.reloadData()
+                self.setupViews()
             case .failure(let error):
                 print(error)
             }
@@ -76,5 +77,10 @@ extension TodosViewController {
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+    }
+    
+    private func setupViews() {
+        let todosCount = TodoDataManager.shared.getTodosCount()
+        mainView.configure(with: todosCount)
     }
 }
