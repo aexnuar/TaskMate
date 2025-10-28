@@ -81,6 +81,7 @@ extension TodosViewController {
     
     private func setupViews() {
         let todosCount = TodoDataManager.shared.getTodosCount()
-        mainView.configure(with: todosCount)
+        let todoWord = DataFormatter.shared.formatTodoWord(for: todosCount)
+        mainView.configureTodosLabel(with: todosCount, and: todoWord)
     }
 }

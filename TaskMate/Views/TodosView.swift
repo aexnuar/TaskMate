@@ -28,8 +28,8 @@ class TodosView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with todosCount: Int) {
-        todosLabel.text = "\(todosCount) Задач"
+    func configureTodosLabel(with todosCount: Int, and word: String) {
+        todosLabel.text = "\(todosCount) \(word)"
     }
     
     private func setupTableView() {
