@@ -47,6 +47,8 @@ class TodoCell: UITableViewCell {
         
         let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
         dateLabel.text = convertedDate
+        
+        updateLabels(isCompleted: todo.completed)
     }
 }
 
@@ -89,11 +91,12 @@ extension TodoCell {
     
     @objc private func iconButtonTapped() {
         delegate?.todoCellDidTapIcon(self)
-        //updateLabels()
     }
-//    private func updateLabels() {
-//        [todo, todoDescription, dateLabel].forEach {
-//            $0.textColor = .customGrayForSeparator
-//        }
-//    }
+    
+    private func updateLabels(isCompleted: Bool) {
+        let views = [todo, todoDescription, dateLabel]
+        views.forEach {
+            $0.textColor = isCompleted ? .customGrayForSeparator : .customWhiteForFont
+        }
+    }
 }
