@@ -40,8 +40,7 @@ extension TodosViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier, for: indexPath) as? TodoCell else { return UITableViewCell() }
         
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
-        cell.configure(with: todo)
-        cell.delegate = self
+        cell.configure(with: todo, delegate: self, index: indexPath)
         
         return cell
     }
@@ -111,14 +110,11 @@ extension TodosViewController: UISearchResultsUpdating {
 
 // MARK: - TodoCellDelegate
 extension TodosViewController: TodoCellDelegate {
-    func todoCellDidTapIcon(_ cell: TodoCell) {
-        guard let indexPath = mainView.tableView.indexPath(for: cell) else { return }
-        
-        var todo = TodoDataManager.shared.getTodo(at: indexPath)
+    func toogleToDoCompleted(for todo: Todo, at index: IndexPath) {
+        var todo = todo
         todo.completed.toggle()
-        
         TodoDataManager.shared.updateTodo(updatedTodo: todo)
         
-        mainView.tableView.reloadRows(at: [indexPath], with: .automatic)
+        mainView.tableView.reloadRows(at: [index], with: .automatic)
     }
 }

@@ -8,14 +8,14 @@
 import UIKit
 
 protocol TodoCellDelegate: AnyObject {
-    func todoCellDidTapIcon(_ cell: TodoCell)
+    func toogleToDoCompleted(for todo: Todo, at index: IndexPath)
 }
 
 class TodoCell: UITableViewCell {
     
     static let identifier = "TodoCell"
     
-    weak var delegate: TodoCellDelegate?
+    private var action: UIAction?
     
     private let todo = UILabel(isBold: true, fontSize: 16)
     private let todoDescription = UILabel(isBold: false, fontSize: 12)
@@ -34,7 +34,7 @@ class TodoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with todo: Todo) {
+    func configure(with todo: Todo, delegate: TodoCellDelegate, index: IndexPath) {
         self.todo.text = todo.todo
         
         if todo.todoDescription != nil {
@@ -44,11 +44,12 @@ class TodoCell: UITableViewCell {
         }
         
         setupIconButton(isCompleted: todo.completed)
+        updateLabels(isCompleted: todo.completed)
         
         let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
         dateLabel.text = convertedDate
         
-        updateLabels(isCompleted: todo.completed)
+        configureAction(with: todo, delegate, index)
     }
 }
 
@@ -85,18 +86,33 @@ extension TodoCell {
         iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .normal)
         iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .selected) // check!
         iconButton.tintColor = .customYellowForButton
-        
-        iconButton.addTarget(self, action: #selector(iconButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func iconButtonTapped() {
-        delegate?.todoCellDidTapIcon(self)
     }
     
     private func updateLabels(isCompleted: Bool) {
-        let views = [todo, todoDescription, dateLabel]
-        views.forEach {
+        let labels = [todo, todoDescription, dateLabel]
+        labels.forEach {
             $0.textColor = isCompleted ? .customGrayForSeparator : .customWhiteForFont
         }
+    }
+    
+    private func configureAction(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
+        if let action = action {
+            iconButton.removeAction(action, for: .touchUpInside)
+        }
+        
+        action = UIAction { [weak delegate] _ in
+            delegate?.toogleToDoCompleted(for: todo, at: index)
+        }
+        
+//        action = UIAction { [weak delegate, weak self] _ in
+//            if let self = self {
+//                let superview = self.superview as? UITableView
+//                guard let index = superview?.indexPath(for: self) else { return }
+//                delegate?.toogleToDoCompleted(for: todo, at: index)
+//            }
+//        }
+        
+        guard let action = action else { return }
+        iconButton.addAction(action, for: .touchUpInside)
     }
 }
