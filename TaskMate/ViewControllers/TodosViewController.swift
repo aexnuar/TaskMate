@@ -10,6 +10,9 @@ import UIKit
 class TodosViewController: UIViewController {
     
     private lazy var mainView = TodosView()
+    private let viewModel = TodosViewModel()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func loadView() {
         view = mainView
@@ -20,6 +23,7 @@ class TodosViewController: UIViewController {
         
         fetchTodos(from: Link.todoResponce.rawValue)
         setupNavigationBar()
+        setupSearchController()
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
@@ -37,6 +41,7 @@ extension TodosViewController: UITableViewDataSource {
         
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
         cell.configure(with: todo)
+        cell.delegate = self
         
         return cell
     }
@@ -83,5 +88,37 @@ extension TodosViewController {
         let todosCount = TodoDataManager.shared.getTodosCount()
         let todoWord = DataFormatter.shared.formatTodoWord(for: todosCount)
         mainView.configureTodosLabel(with: todosCount, and: todoWord)
+    }
+    
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+}
+
+// MARK: - Search Controller Functions
+extension TodosViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print("Debug print:", searchController.searchBar.text ?? "")
+    }
+}
+
+// MARK: - TodoCellDelegate
+extension TodosViewController: TodoCellDelegate {
+    func todoCellDidTapIcon(_ cell: TodoCell) {
+        guard let indexPath = mainView.tableView.indexPath(for: cell) else { return }
+        
+        var todo = TodoDataManager.shared.getTodo(at: indexPath)
+        todo.completed.toggle()
+        
+        TodoDataManager.shared.updateTodo(updatedTodo: todo)
+        
+        mainView.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

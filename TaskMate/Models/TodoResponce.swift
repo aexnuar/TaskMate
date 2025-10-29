@@ -16,7 +16,7 @@ struct Todo: Codable {
     let id: Int
     let todo: String
     let todoDescription: String?
-    let completed: Bool
+    var completed: Bool
     let userID: Int
     let date: Date?
     

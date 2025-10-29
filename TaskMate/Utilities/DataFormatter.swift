@@ -24,6 +24,6 @@ class DataFormatter {
         } else {
             return "Задач"
         }
-    }
-    
+    }    
 }
+

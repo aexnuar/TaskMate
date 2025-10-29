@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol TodoCellDelegate: AnyObject {
+    func todoCellDidTapIcon(_ cell: TodoCell)
+}
+
 class TodoCell: UITableViewCell {
     
     static let identifier = "TodoCell"
+    
+    weak var delegate: TodoCellDelegate?
     
     private let todo = UILabel(isBold: true, fontSize: 16)
     private let todoDescription = UILabel(isBold: false, fontSize: 12)
@@ -36,7 +42,7 @@ class TodoCell: UITableViewCell {
         } else {
             self.todoDescription.text = "Notes"
         }
-    
+        
         setupIconButton(isCompleted: todo.completed)
         
         let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
@@ -63,7 +69,7 @@ extension TodoCell {
             iconButton.centerYAnchor.constraint(equalTo: todo.centerYAnchor),
             iconButton.widthAnchor.constraint(equalToConstant: 36),
             iconButton.heightAnchor.constraint(equalToConstant: 36),
-
+            
             stack.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor, constant: 8),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
@@ -77,5 +83,17 @@ extension TodoCell {
         iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .normal)
         iconButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .selected) // check!
         iconButton.tintColor = .customYellowForButton
+        
+        iconButton.addTarget(self, action: #selector(iconButtonTapped), for: .touchUpInside)
     }
+    
+    @objc private func iconButtonTapped() {
+        delegate?.todoCellDidTapIcon(self)
+        //updateLabels()
+    }
+//    private func updateLabels() {
+//        [todo, todoDescription, dateLabel].forEach {
+//            $0.textColor = .customGrayForSeparator
+//        }
+//    }
 }

@@ -20,6 +20,16 @@ class TodoDataManager {
         self.todos = todos
     }
     
+    func getAllTodos() -> [Todo] {
+        todos
+    }
+    
+    func updateTodo(updatedTodo: Todo) {
+        if let index = todos.firstIndex(where: { $0.id == updatedTodo.id }) {
+            todos[index] = updatedTodo
+        }
+    }
+    
     func getTodo(at indexPath: IndexPath) -> Todo {
         todos[indexPath.row]
     }

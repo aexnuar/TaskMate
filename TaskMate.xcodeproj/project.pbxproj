@@ -24,6 +24,7 @@
 		0B8FD4952EAF765B00AABC6F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */; };
 		0B8FD4992EAFBA6C00AABC6F /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4982EAFBA6C00AABC6F /* DateFormatter.swift */; };
 		0B8FD4A42EB10B4D00AABC6F /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4A32EB10B4D00AABC6F /* DataFormatter.swift */; };
+		0B8FD4A72EB1346A00AABC6F /* TodosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FD4A62EB1346A00AABC6F /* TodosViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		0B8FD4942EAF765B00AABC6F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		0B8FD4982EAFBA6C00AABC6F /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		0B8FD4A32EB10B4D00AABC6F /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
+		0B8FD4A62EB1346A00AABC6F /* TodosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +86,7 @@
 				0B8FD47C2EAD250A00AABC6F /* Views */,
 				0B8FD47D2EAD251000AABC6F /* Cells */,
 				0B8FD47E2EAD251900AABC6F /* ViewControllers */,
-				0B8FD4962EAF863A00AABC6F /* Extentions */,
+				0B8FD4A52EB133F900AABC6F /* ViewModels */,
 				0B8FD4972EAFBA2500AABC6F /* Utilities */,
 				0B8FD47F2EAD252E00AABC6F /* Services */,
 				0B8FD4802EAD253D00AABC6F /* Resources */,
@@ -156,13 +158,6 @@
 			path = UIKitExtensions;
 			sourceTree = "<group>";
 		};
-		0B8FD4962EAF863A00AABC6F /* Extentions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extentions;
-			sourceTree = "<group>";
-		};
 		0B8FD4972EAFBA2500AABC6F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +165,14 @@
 				0B8FD4A32EB10B4D00AABC6F /* DataFormatter.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0B8FD4A52EB133F900AABC6F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0B8FD4A62EB1346A00AABC6F /* TodosViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +252,7 @@
 				0B8FD4932EAE454000AABC6F /* UIStackViewExtension.swift in Sources */,
 				0B8FD4822EAD279C00AABC6F /* TodosViewController.swift in Sources */,
 				0B8FD48C2EAE2F7B00AABC6F /* URLManager.swift in Sources */,
+				0B8FD4A72EB1346A00AABC6F /* TodosViewModel.swift in Sources */,
 				0B8FD4842EAD289D00AABC6F /* TodosView.swift in Sources */,
 				0B8FD4782EAD24EF00AABC6F /* SceneDelegate.swift in Sources */,
 				0B8FD4952EAF765B00AABC6F /* UIColorExtension.swift in Sources */,

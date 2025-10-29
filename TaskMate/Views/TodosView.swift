@@ -47,8 +47,6 @@ class TodosView: UIView {
         
         addNewTodoButton.setImage(UIImage(systemName: imageName, withConfiguration: imageConfig), for: .normal)
         addNewTodoButton.tintColor = .customYellowForButton
-        
-        
     }
     
     private func setupConstraints() {
@@ -82,7 +80,6 @@ class TodosView: UIView {
             
             addNewTodoButton.centerYAnchor.constraint(equalTo: todosLabel.centerYAnchor),
             addNewTodoButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -22)
-            
         ])
     }
 }
