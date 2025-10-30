@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in TodoCell.configureAction(with:_:_:):TodoCell.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TodosViewController.updateSearchResults(for:):TodosViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchController.searchBar.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TodosViewModel.updateSearchController(searchBarText:):TodosViewModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TodosViewController.toogleToDoCompleted(for:at:):TodosViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TodoDataManager.updateTodo(updatedTodo:):TodoDataManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TodoDataManager.callDataUpdateDelegates():TodoDataManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in TodoDataManager.callDataUpdateDelegates():TodoDataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "filter.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

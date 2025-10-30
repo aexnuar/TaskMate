@@ -10,7 +10,7 @@ import UIKit
 class TodosViewController: UIViewController {
     
     private lazy var mainView = TodosView()
-    private let viewModel = TodosViewModel()
+    private let viewModel: TodosViewModel
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -27,13 +27,29 @@ class TodosViewController: UIViewController {
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
+        
+        viewModel.onDataUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.mainView.tableView.reloadData()
+            }
+        }
+    }
+    
+    init(viewModel: TodosViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 // MARK: - UITableViewDataSource
 extension TodosViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        TodoDataManager.shared.getTodosCount()
+//        TodoDataManager.shared.getTodosCount()
+        viewModel.count
         
 //        let inSearchMode = viewModel.inSearchMode(searchController)
 //        return inSearchMode ? viewModel.filteredTodos.count : viewModel.allTodos.count
@@ -42,7 +58,8 @@ extension TodosViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier, for: indexPath) as? TodoCell else { return UITableViewCell() }
         
-        let todo = TodoDataManager.shared.getTodo(at: indexPath)
+//        let todo = TodoDataManager.shared.getTodo(at: indexPath)
+        let todo = viewModel.getTodo(at: indexPath.row)
         cell.configure(with: todo, delegate: self, index: indexPath)
         
 //        let inSearchMode = viewModel.inSearchMode(searchController)
@@ -107,12 +124,12 @@ extension TodosViewController {
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.placeholder = "Search"
         
         navigationItem.searchController = searchController
         definesPresentationContext = false
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
 

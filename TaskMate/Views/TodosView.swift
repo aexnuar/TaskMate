@@ -17,7 +17,7 @@ class TodosView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .black
+        //backgroundColor = .black
         
         setupTableView()
         setupBottomView()
@@ -36,6 +36,8 @@ class TodosView: UIView {
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .customGrayForSeparator
+        
+        tableView.backgroundColor = .customBlackForBackground
         
     }
     
