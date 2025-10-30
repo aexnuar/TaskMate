@@ -35,7 +35,7 @@ class TodoCell: UITableViewCell {
     }
     
     func configure(with todo: Todo, delegate: TodoCellDelegate, index: IndexPath) {
-        self.todo.text = todo.todo
+        setupStrikethrough(for: todo)
         
         if todo.todoDescription != nil {
             self.todoDescription.text = todo.todoDescription
@@ -44,7 +44,7 @@ class TodoCell: UITableViewCell {
         }
         
         setupIconButton(isCompleted: todo.completed)
-        updateLabels(isCompleted: todo.completed)
+        setupLabelsColor(isCompleted: todo.completed)
         
         let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
         dateLabel.text = convertedDate
@@ -88,12 +88,29 @@ extension TodoCell {
         iconButton.tintColor = .customYellowForButton
     }
     
-    private func updateLabels(isCompleted: Bool) {
+    private func setupLabelsColor(isCompleted: Bool) {
         let labels = [todo, todoDescription, dateLabel]
         labels.forEach {
             $0.textColor = isCompleted ? .customGrayForSeparator : .customWhiteForFont
         }
     }
+    
+    private func setupStrikethrough(for todo: Todo) {
+        self.todo.attributedText = nil
+        
+        if todo.completed {
+            let attributeString = NSMutableAttributedString(string: todo.todo)
+            attributeString.addAttribute(
+                .strikethroughStyle,
+                value: NSUnderlineStyle.single.rawValue,
+                range: NSRange(location: 0, length: attributeString.length)
+            )
+            self.todo.attributedText = attributeString
+        } else {
+            self.todo.text = todo.todo
+        }
+    }
+    
     
     private func configureAction(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
         if let action = action {
@@ -104,13 +121,13 @@ extension TodoCell {
             delegate?.toogleToDoCompleted(for: todo, at: index)
         }
         
-//        action = UIAction { [weak delegate, weak self] _ in
-//            if let self = self {
-//                let superview = self.superview as? UITableView
-//                guard let index = superview?.indexPath(for: self) else { return }
-//                delegate?.toogleToDoCompleted(for: todo, at: index)
-//            }
-//        }
+        //        action = UIAction { [weak delegate, weak self] _ in
+        //            if let self = self {
+        //                let superview = self.superview as? UITableView
+        //                guard let index = superview?.indexPath(for: self) else { return }
+        //                delegate?.toogleToDoCompleted(for: todo, at: index)
+        //            }
+        //        }
         
         guard let action = action else { return }
         iconButton.addAction(action, for: .touchUpInside)

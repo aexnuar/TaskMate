@@ -11,7 +11,7 @@ class TodosViewModel {
     
     var onDataUpdated: (() -> Void)?
     
-    private var allTodos: [Todo] = [] {
+    private(set) var allTodos: [Todo] = [] {
         didSet {
             onDataUpdated?()
         }
@@ -19,14 +19,14 @@ class TodosViewModel {
     
     private(set) var filteredTodos: [Todo] = []
     
-    private func fetchTodos() {
+    init() {
         allTodos = TodoDataManager.shared.getAllTodos()
     }
 }
 
 // MARK: - Search Functions
 extension TodosViewModel {
-    public func inSearcModel(_ searchController: UISearchController) -> Bool {
+    public func inSearchMode(_ searchController: UISearchController) -> Bool {
         let isActivate = searchController.isActive
         let searchText = searchController.searchBar.text ?? ""
         
@@ -34,6 +34,16 @@ extension TodosViewModel {
     }
     
     public func updateSearchController(searchBarText: String?) {
-        self.filteredTodos = allTodos
+        filteredTodos = allTodos
+        
+        if let searchText = searchBarText?.lowercased() {
+            guard !searchText.isEmpty else { onDataUpdated?(); return }
+            
+            filteredTodos = filteredTodos.filter({
+                $0.todo.lowercased().contains(searchText) })
+        }
+        
+        onDataUpdated?()
     }
 }
+

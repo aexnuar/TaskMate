@@ -34,6 +34,9 @@ class TodosViewController: UIViewController {
 extension TodosViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         TodoDataManager.shared.getTodosCount()
+        
+//        let inSearchMode = viewModel.inSearchMode(searchController)
+//        return inSearchMode ? viewModel.filteredTodos.count : viewModel.allTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,6 +44,10 @@ extension TodosViewController: UITableViewDataSource {
         
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
         cell.configure(with: todo, delegate: self, index: indexPath)
+        
+//        let inSearchMode = viewModel.inSearchMode(searchController)
+//        let todo = inSearchMode ? viewModel.filteredTodos[indexPath.row] : viewModel.allTodos[indexPath.row]
+//        cell.configure(with: todo, delegate: self, index: indexPath)
         
         return cell
     }
@@ -104,7 +111,7 @@ extension TodosViewController {
 // MARK: - Search Controller Functions
 extension TodosViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print("Debug print:", searchController.searchBar.text ?? "")
+        viewModel.updateSearchController(searchBarText: searchController.searchBar.text)
     }
 }
 
