@@ -111,7 +111,6 @@ extension TodoCell {
         }
     }
     
-    
     private func configureAction(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
         if let action = action {
             iconButton.removeAction(action, for: .touchUpInside)

@@ -58,6 +58,14 @@ extension TodosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         106
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        mainView.tableView.deselectRow(at: indexPath, animated: true)
+        
+        let todo = TodoDataManager.shared.getTodo(at: indexPath)
+        let todoVC = TodoViewController(todo: todo)
+        navigationController?.pushViewController(todoVC, animated: true)
+    }
 }
 
 // MARK: - Private methods
