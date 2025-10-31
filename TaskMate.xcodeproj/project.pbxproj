@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B4720342EB3819800277DD3 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4720332EB3819800277DD3 /* TodoViewController.swift */; };
-		0B4720362EB386CC00277DD3 /* NewTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4720352EB386CC00277DD3 /* NewTodoViewController.swift */; };
 		0B4720382EB3870B00277DD3 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4720372EB3870B00277DD3 /* TodoView.swift */; };
 		0B8FD4732EAD24EF00AABC6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B8FD4682EAD24EF00AABC6F /* Assets.xcassets */; };
 		0B8FD4752EAD24EF00AABC6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B8FD46B2EAD24EF00AABC6F /* LaunchScreen.storyboard */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		0B4720332EB3819800277DD3 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
-		0B4720352EB386CC00277DD3 /* NewTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoViewController.swift; sourceTree = "<group>"; };
 		0B4720372EB3870B00277DD3 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		0B8FD44C2EAD24D400AABC6F /* TaskMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B8FD4672EAD24EF00AABC6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 			children = (
 				0B8FD4812EAD279C00AABC6F /* TodosViewController.swift */,
 				0B4720332EB3819800277DD3 /* TodoViewController.swift */,
-				0B4720352EB386CC00277DD3 /* NewTodoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B8FD4772EAD24EF00AABC6F /* AppDelegate.swift in Sources */,
-				0B4720362EB386CC00277DD3 /* NewTodoViewController.swift in Sources */,
 				0B8FD4932EAE454000AABC6F /* UIStackViewExtension.swift in Sources */,
 				0B8FD4822EAD279C00AABC6F /* TodosViewController.swift in Sources */,
 				0B4720382EB3870B00277DD3 /* TodoView.swift in Sources */,

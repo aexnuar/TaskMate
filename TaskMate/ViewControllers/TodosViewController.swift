@@ -22,8 +22,10 @@ class TodosViewController: UIViewController {
         super.viewDidLoad()
         
         fetchTodos(from: Link.todoResponce.rawValue)
+        
         setupNavigationBar()
         setupSearchController()
+        setupActions()
         
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
@@ -33,6 +35,11 @@ class TodosViewController: UIViewController {
                 self?.mainView.tableView.reloadData()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     init(viewModel: TodosViewModel) {
@@ -73,6 +80,8 @@ extension TodosViewController: UITableViewDelegate {
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
         let todoVC = TodoViewController(todo: todo)
         navigationController?.pushViewController(todoVC, animated: true)
+        
+        navigationItem.backButtonTitle = "Назад"
     }
 }
 
@@ -107,7 +116,7 @@ extension TodosViewController {
     }
     
     private func setupViews() {
-        let todosCount = TodoDataManager.shared.getTodosCount()
+        let todosCount = TodoDataManager.shared.getUncompletedTodosCount()
         let todoWord = DataFormatter.shared.formatTodoWord(for: todosCount)
         mainView.configureTodosLabel(with: todosCount, and: todoWord)
     }
@@ -119,7 +128,7 @@ extension TodosViewController {
         
         navigationItem.searchController = searchController
         definesPresentationContext = false
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         searchController.searchBar.searchTextField.textColor = .customWhiteForFont
         let placeholderText = "Search"
@@ -131,6 +140,21 @@ extension TodosViewController {
         if let glassIconView = searchController.searchBar.searchTextField.leftView as? UIImageView {
             glassIconView.tintColor = UIColor.white.withAlphaComponent(0.4)
         }
+    }
+    
+    private func setupActions() {
+        mainView.addTargetForAddNewTodoButton(target: self, action: #selector(addNewTodoButtonTapped))
+    }
+    
+    @objc private func addNewTodoButtonTapped() {
+        showTodoPage()
+    }
+    
+    private func showTodoPage() {
+        let todoVC = TodoViewController(todo: nil)
+        navigationController?.pushViewController(todoVC, animated: true)
+        
+        navigationItem.backButtonTitle = "Назад"
     }
 }
 
@@ -149,5 +173,6 @@ extension TodosViewController: TodoCellDelegate {
         TodoDataManager.shared.updateTodo(updatedTodo: todo)
         
         mainView.tableView.reloadRows(at: [index], with: .automatic)
+        setupViews()
     }
 }

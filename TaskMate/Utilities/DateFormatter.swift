@@ -14,6 +14,16 @@ class DateFormatterHelper {
     private init() {}
     
     func formatDate(from date: Date?) -> String {
+        guard let date = date else { return "Date" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        formatter.locale = Locale(identifier: "ru_RU") // check
+        
+        let dateStr = formatter.string(from: date)
+        return dateStr
+    }
+    
+    func formatDateForMainPage(from date: Date?) -> String {
         guard let date = date else { return "n/a" }
         
         let formatter = DateFormatter()

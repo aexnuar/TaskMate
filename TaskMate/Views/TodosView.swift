@@ -30,10 +30,17 @@ class TodosView: UIView {
         todosLabel.text = "\(todosCount) \(word)"
     }
     
+    func addTargetForAddNewTodoButton(target: Any?, action: Selector) {
+        addNewTodoButton.addTarget(target, action: action, for: .touchUpInside)
+    }
+}
+
+// MARK: - Pivate methods
+extension TodosView {
     private func setupTableView() {
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .customGrayForSeparator
+        tableView.separatorColor = .customGray
         
         tableView.backgroundColor = .customBlackForBackground
         
@@ -41,7 +48,7 @@ class TodosView: UIView {
     
     private func setupBottomView() {
         bottomView.backgroundColor = .customGrayForSearch
-
+        
         let imageName = "square.and.pencil"
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .regular)
         
@@ -50,12 +57,12 @@ class TodosView: UIView {
     }
     
     private func setupConstraints() {
-        let views = [
+        let subViews = [
             tableView, bottomView,
             todosLabel, addNewTodoButton
         ]
         
-        views.forEach {
+        subViews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -83,4 +90,3 @@ class TodosView: UIView {
         ])
     }
 }
-

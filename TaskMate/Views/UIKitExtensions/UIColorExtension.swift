@@ -16,7 +16,7 @@ extension UIColor {
         UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
     }
     
-    static var customGrayForSeparator: UIColor {
+    static var customGray: UIColor {
         UIColor(red: 77/255, green: 85/255, blue: 94/255, alpha: 1)
     }
     

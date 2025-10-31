@@ -44,6 +44,16 @@ class TodoDataManager {
     func getTodosCount() -> Int {
         todos.count
     }
+    
+    func getUncompletedTodosCount() -> Int {
+        var uncompletedTodos: [Todo] = []
+        
+        for todo in todos where todo.completed == false {
+            uncompletedTodos.append(todo)
+        }
+        
+        return uncompletedTodos.count
+    }
 }
 
 // MARK: - Filtares and delegate TODO updates

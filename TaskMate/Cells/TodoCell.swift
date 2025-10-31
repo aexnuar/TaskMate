@@ -46,10 +46,10 @@ class TodoCell: UITableViewCell {
         setupIconButton(isCompleted: todo.completed)
         setupLabelsColor(isCompleted: todo.completed)
         
-        let convertedDate = DateFormatterHelper.shared.formatDate(from: todo.date)
+        let convertedDate = DateFormatterHelper.shared.formatDateForMainPage(from: todo.date)
         dateLabel.text = convertedDate
         
-        configureAction(with: todo, delegate, index)
+        configureActionForIconButton(with: todo, delegate, index)
     }
 }
 
@@ -91,7 +91,7 @@ extension TodoCell {
     private func setupLabelsColor(isCompleted: Bool) {
         let labels = [todo, todoDescription, dateLabel]
         labels.forEach {
-            $0.textColor = isCompleted ? .customGrayForSeparator : .customWhiteForFont
+            $0.textColor = isCompleted ? .customGray : .customWhiteForFont
         }
     }
     
@@ -111,7 +111,7 @@ extension TodoCell {
         }
     }
     
-    private func configureAction(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
+    private func configureActionForIconButton(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
         if let action = action {
             iconButton.removeAction(action, for: .touchUpInside)
         }

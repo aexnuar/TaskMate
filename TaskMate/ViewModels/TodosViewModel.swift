@@ -5,8 +5,6 @@
 //  Created by aex on 28.10.2025.
 //
 
-//import Foundation
-
 class TodosViewModel {
 
     var onDataUpdated: (() -> Void)?
@@ -32,7 +30,7 @@ class TodosViewModel {
 // MARK: - Search Functions
 extension TodosViewModel {
     public func inSearchMode() -> Bool {
-        return !filter.isEmpty
+        !filter.isEmpty
     }
     
     public func updateSearchController(searchBarText: String?) {
