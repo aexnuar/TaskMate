@@ -17,8 +17,6 @@ class TodosView: UIView {
     
     init() {
         super.init(frame: .zero)
-        //backgroundColor = .black
-        
         setupTableView()
         setupBottomView()
         setupConstraints()

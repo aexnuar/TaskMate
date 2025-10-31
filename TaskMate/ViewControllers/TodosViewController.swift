@@ -48,23 +48,14 @@ class TodosViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension TodosViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        TodoDataManager.shared.getTodosCount()
         viewModel.count
-        
-//        let inSearchMode = viewModel.inSearchMode(searchController)
-//        return inSearchMode ? viewModel.filteredTodos.count : viewModel.allTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier, for: indexPath) as? TodoCell else { return UITableViewCell() }
         
-//        let todo = TodoDataManager.shared.getTodo(at: indexPath)
         let todo = viewModel.getTodo(at: indexPath.row)
         cell.configure(with: todo, delegate: self, index: indexPath)
-        
-//        let inSearchMode = viewModel.inSearchMode(searchController)
-//        let todo = inSearchMode ? viewModel.filteredTodos[indexPath.row] : viewModel.allTodos[indexPath.row]
-//        cell.configure(with: todo, delegate: self, index: indexPath)
         
         return cell
     }
@@ -124,12 +115,22 @@ extension TodosViewController {
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = true
-        searchController.searchBar.placeholder = "Search"
+        searchController.hidesNavigationBarDuringPresentation = false
         
         navigationItem.searchController = searchController
         definesPresentationContext = false
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
+        searchController.searchBar.searchTextField.textColor = .customWhiteForFont
+        let placeholderText = "Search"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0.4)
+        ]
+        searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
+        
+        if let glassIconView = searchController.searchBar.searchTextField.leftView as? UIImageView {
+            glassIconView.tintColor = UIColor.white.withAlphaComponent(0.4)
+        }
     }
 }
 

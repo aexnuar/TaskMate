@@ -16,17 +16,13 @@ class TodoDataManager {
     static let shared = TodoDataManager()
     
     private var todos: [Todo] = []
-    private var completedTodos: [Todo] = []
-    
     private var filter: String = ""
-    
     private var dataUpdateDelegates: [TodoDataUpdateDelegate] = []
     
     private init() {}
     
     func setTodos(with todos: [Todo]) {
         self.todos = todos
-        
         callDataUpdateDelegates()
     }
     
@@ -38,7 +34,6 @@ class TodoDataManager {
         if let index = todos.firstIndex(where: { $0.id == updatedTodo.id }) {
             todos[index] = updatedTodo
         }
-        
         callDataUpdateDelegates()
     }
     
@@ -55,16 +50,11 @@ class TodoDataManager {
 extension TodoDataManager {
     func setTodosFilter(request: String) {
         filter = request
-        
         callDataUpdateDelegates()
     }
     
     func addDataUpdateDelegate(delegate: TodoDataUpdateDelegate) {
-        //        if !dataUpdateDelegates.contains(where: { element in
-        //            dataUpdateDelegates.append(element)
-        //        })
         delegate.onToDoDataUpdate(todos: filter.isEmpty ? todos : getFilteredTodos(request: filter), request: filter)
-        
         dataUpdateDelegates.append(delegate)
     }
     
