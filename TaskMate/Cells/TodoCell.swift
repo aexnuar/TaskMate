@@ -34,22 +34,13 @@ class TodoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with todo: Todo, delegate: TodoCellDelegate, index: IndexPath) {
-        setupStrikethrough(for: todo)
-        
-        if todo.todoDescription != nil {
-            self.todoDescription.text = todo.todoDescription
-        } else {
-            self.todoDescription.text = "Notes"
-        }
+    func configure(todo: Todo, delegate: TodoCellDelegate, index: IndexPath) {
+        configureLables(with: todo)
+        configureActionForIconButton(with: todo, delegate, index)
         
         setupIconButton(isCompleted: todo.completed)
         setupLabelsColor(isCompleted: todo.completed)
-        
-        let convertedDate = DateFormatterHelper.shared.formatDateForMainPage(from: todo.date)
-        dateLabel.text = convertedDate
-        
-        configureActionForIconButton(with: todo, delegate, index)
+        setupStrikethrough(for: todo)
     }
 }
 
@@ -77,6 +68,42 @@ extension TodoCell {
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+    }
+}
+
+// MARK: - Configure methods
+extension TodoCell {
+    private func configureActionForIconButton(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
+        if let action = action {
+            iconButton.removeAction(action, for: .touchUpInside)
+        }
+        
+        action = UIAction { [weak delegate] _ in
+            delegate?.toogleToDoCompleted(for: todo, at: index)
+        }
+        
+        //        action = UIAction { [weak delegate, weak self] _ in
+        //            if let self = self {
+        //                let superview = self.superview as? UITableView
+        //                guard let index = superview?.indexPath(for: self) else { return }
+        //                delegate?.toogleToDoCompleted(for: todo, at: index)
+        //            }
+        //        }
+        
+        guard let action = action else { return }
+        iconButton.addAction(action, for: .touchUpInside)
+    }
+    
+    private func configureLables(with todo: Todo) {
+        if let description = todo.todoDescription, let date = todo.date {
+            todoDescription.text = description
+            dateLabel.text = DateFormatterHelper.shared.formatDate(from: date)
+            todoDescription.isHidden = false
+            dateLabel.isHidden = false 
+        } else {
+            todoDescription.isHidden = true
+            dateLabel.isHidden = true
+        }
     }
     
     private func setupIconButton(isCompleted: Bool) {
@@ -110,25 +137,8 @@ extension TodoCell {
             self.todo.text = todo.todo
         }
     }
-    
-    private func configureActionForIconButton(with todo: Todo, _ delegate: TodoCellDelegate, _ index: IndexPath) {
-        if let action = action {
-            iconButton.removeAction(action, for: .touchUpInside)
-        }
-        
-        action = UIAction { [weak delegate] _ in
-            delegate?.toogleToDoCompleted(for: todo, at: index)
-        }
-        
-        //        action = UIAction { [weak delegate, weak self] _ in
-        //            if let self = self {
-        //                let superview = self.superview as? UITableView
-        //                guard let index = superview?.indexPath(for: self) else { return }
-        //                delegate?.toogleToDoCompleted(for: todo, at: index)
-        //            }
-        //        }
-        
-        guard let action = action else { return }
-        iconButton.addAction(action, for: .touchUpInside)
-    }
 }
+
+
+
+

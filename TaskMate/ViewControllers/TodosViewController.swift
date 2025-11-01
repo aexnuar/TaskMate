@@ -21,18 +21,19 @@ class TodosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainView.tableView.dataSource = self
+        mainView.tableView.delegate = self
+        
         fetchTodos(from: Link.todoResponce.rawValue)
         
         setupNavigationBar()
         setupSearchController()
         setupActions()
         
-        mainView.tableView.dataSource = self
-        mainView.tableView.delegate = self
-        
         viewModel.onDataUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.mainView.tableView.reloadData()
+                self?.setupViews()
             }
         }
     }
@@ -62,7 +63,7 @@ extension TodosViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier, for: indexPath) as? TodoCell else { return UITableViewCell() }
         
         let todo = viewModel.getTodo(at: indexPath.row)
-        cell.configure(with: todo, delegate: self, index: indexPath)
+        cell.configure(todo: todo, delegate: self, index: indexPath)
         
         return cell
     }
@@ -78,7 +79,8 @@ extension TodosViewController: UITableViewDelegate {
         mainView.tableView.deselectRow(at: indexPath, animated: true)
         
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
-        let todoVC = TodoViewController(todo: todo)
+        let todoVC = TodoViewController(todo: todo, index: indexPath)
+        todoVC.delegate = self
         navigationController?.pushViewController(todoVC, animated: true)
         
         navigationItem.backButtonTitle = "Назад"
@@ -151,9 +153,10 @@ extension TodosViewController {
     }
     
     private func showTodoPage() {
-        let todoVC = TodoViewController(todo: nil)
+        let todoVC = TodoViewController(todo: nil, index: nil)
+        todoVC.delegate = self
+
         navigationController?.pushViewController(todoVC, animated: true)
-        
         navigationItem.backButtonTitle = "Назад"
     }
 }
@@ -173,6 +176,12 @@ extension TodosViewController: TodoCellDelegate {
         TodoDataManager.shared.updateTodo(updatedTodo: todo)
         
         mainView.tableView.reloadRows(at: [index], with: .automatic)
-        setupViews()
+    }
+}
+
+// MARK: - TodoViewUpdateDelegate
+extension TodosViewController: TodoViewUpdateDelegate {
+    func todoViewDidRequestReload(at index: IndexPath) {
+        mainView.tableView.reloadRows(at: [index], with: .automatic)
     }
 }

@@ -10,7 +10,6 @@ import UIKit
 class TodoView: UIView {
     
     private let todoTextField = UITextField()
-    //private let todoDatePicker = UIDatePicker()
     private let todoDateLabel = UILabel(isBold: false, fontSize: 12)
     private let todoDescriptionTextView = UITextView()
     
@@ -18,7 +17,7 @@ class TodoView: UIView {
         super.init(frame: .zero)
         backgroundColor = .customBlackForBackground
         
-        setupSubviews()
+        setupViews()
         setupConstraints()
     }
     
@@ -33,7 +32,7 @@ class TodoView: UIView {
         todoDateLabel.text = dateStr
     }
     
-    private func setupSubviews() {
+    private func setupViews() {
         todoTextField.placeholder = "Todo"
         todoTextField.font = UIFont.systemFont(ofSize: 34, weight: .semibold)
         todoTextField.textColor = .customWhiteForFont
@@ -62,5 +61,23 @@ class TodoView: UIView {
             stackSubviews.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
     }
+}
+
+extension TodoView {
+    func getTitle() -> String {
+        todoTextField.text ?? ""
+    }
+    
+    func getDate() -> Date {
+        let dateString = todoDateLabel.text ?? ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        return dateFormatter.date(from: dateString) ?? Date()
+    }
+    
+    func getDescription() -> String {
+        todoDescriptionTextView.text ?? ""
+    }
     
 }
+

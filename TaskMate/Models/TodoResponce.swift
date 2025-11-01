@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct TodoResponce: Codable {
+struct TodoResponce: Codable, Equatable {
     let todos: [Todo]
     let total, skip, limit: Int
 }
 
-struct Todo: Codable {
+struct Todo: Codable, Equatable {
     let id: Int
-    let todo: String
-    let todoDescription: String?
+    var todo: String
+    var todoDescription: String?
     var completed: Bool
-    let userID: Int
-    let date: Date?
+    let userID: Int?
+    var date: Date?
     
     enum CodingKeys: String, CodingKey {
         case id, todo, todoDescription, completed, date
