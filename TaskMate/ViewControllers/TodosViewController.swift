@@ -84,7 +84,7 @@ extension TodosViewController: UITableViewDelegate {
         
         let todo = TodoDataManager.shared.getTodo(at: indexPath)
         let todoVC = TodoViewController(todo: todo, index: indexPath)
-        todoVC.delegate = self
+        //todoVC.delegate = self
         navigationController?.pushViewController(todoVC, animated: true)
         
         navigationItem.backButtonTitle = "Назад"
@@ -106,8 +106,6 @@ extension TodosViewController {
                 }
                 
                 print("\(todoResponce.todos.count) todos downloaded from neetwork")
-//                self.mainView.tableView.reloadData()
-//                self.setupViews()
             case .failure(let error):
                 print(error)
             }
@@ -179,7 +177,7 @@ extension TodosViewController {
     
     private func showTodoPage() {
         let todoVC = TodoViewController(todo: nil, index: nil)
-        todoVC.delegate = self
+        //todoVC.delegate = self
         
         navigationController?.pushViewController(todoVC, animated: true)
         navigationItem.backButtonTitle = "Назад"
@@ -205,8 +203,8 @@ extension TodosViewController: TodoCellDelegate {
 }
 
 // MARK: - TodoViewUpdateDelegate
-extension TodosViewController: TodoViewUpdateDelegate {
-    func todoViewDidRequestReload(at index: IndexPath) {
-        mainView.tableView.reloadRows(at: [index], with: .automatic)
-    }
-}
+//extension TodosViewController: TodoViewUpdateDelegate {
+//    func todoViewDidRequestReload(at index: IndexPath) {
+//        mainView.tableView.reloadRows(at: [index], with: .automatic)
+//    }
+//}

@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol TodoViewUpdateDelegate: AnyObject {
-    func todoViewDidRequestReload(at index: IndexPath)
-}
+//protocol TodoViewUpdateDelegate: AnyObject {
+//    func todoViewDidRequestReload(at index: IndexPath)
+//}
 
 class TodoViewController: UIViewController {
     
@@ -17,7 +17,7 @@ class TodoViewController: UIViewController {
     private var todo: Todo?
     private var index: IndexPath?
     
-    weak var delegate: TodoViewUpdateDelegate?
+//    weak var delegate: TodoViewUpdateDelegate?
     
     init(todo: Todo?, index: IndexPath?) {
         self.todo = todo
