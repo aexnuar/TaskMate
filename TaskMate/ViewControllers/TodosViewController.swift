@@ -24,7 +24,11 @@ class TodosViewController: UIViewController {
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
         
-        fetchTodos(from: Link.todoResponce.rawValue)
+        fetchTodosFromCoreData()
+        
+        if TodoDataManager.shared.IfTodosEmpty() {
+            fetchTodos(from: Link.todoResponce.rawValue)
+        }
         
         setupNavigationBar()
         setupSearchController()
@@ -84,6 +88,8 @@ extension TodosViewController: UITableViewDelegate {
         navigationController?.pushViewController(todoVC, animated: true)
         
         navigationItem.backButtonTitle = "Назад"
+        
+        //TodoDataManager.shared.deleteTodo(todo: todo)
     }
 }
 
@@ -94,8 +100,27 @@ extension TodosViewController {
             switch result {
             case .success(let todoResponce):
                 TodoDataManager.shared.setTodos(with: todoResponce.todos)
-                self.mainView.tableView.reloadData()
+                
+                todoResponce.todos.forEach {
+                    StorageManager.shared.createTodo($0)
+                }
+                
+                print("\(todoResponce.todos.count) todos downloaded from neetwork")
+//                self.mainView.tableView.reloadData()
+//                self.setupViews()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func fetchTodosFromCoreData() {
+        StorageManager.shared.fetchTodos { result in
+            switch result {
+            case .success(let todos):
+                TodoDataManager.shared.setTodos(with: todos)
                 self.setupViews()
+                print("\(todos.count) todos downloaded from core data")
             case .failure(let error):
                 print(error)
             }
@@ -155,7 +180,7 @@ extension TodosViewController {
     private func showTodoPage() {
         let todoVC = TodoViewController(todo: nil, index: nil)
         todoVC.delegate = self
-
+        
         navigationController?.pushViewController(todoVC, animated: true)
         navigationItem.backButtonTitle = "Назад"
     }

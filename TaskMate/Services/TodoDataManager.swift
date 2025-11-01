@@ -33,6 +33,8 @@ class TodoDataManager {
     func addNewTodo(_ todo: Todo) {
         todos.append(todo)
         callDataUpdateDelegates()
+        
+        StorageManager.shared.createTodo(todo)
     }
     
     func updateTodo(updatedTodo: Todo) {
@@ -40,15 +42,16 @@ class TodoDataManager {
             todos[index] = updatedTodo
         }
         callDataUpdateDelegates()
+        StorageManager.shared.updateTodo(updatedTodo)
     }
     
     func deleteTodo(todo: Todo) {
         guard let index = todos.firstIndex(of: todo) else { return }
         todos.remove(at: index)
-        
         // users.contains(where: { $0.id == 2 })
+        
+        StorageManager.shared.deleteTodo(todo)
     }
-    
     
     func getTodo(at indexPath: IndexPath) -> Todo { 
         todos[indexPath.row]
@@ -71,6 +74,10 @@ class TodoDataManager {
     func generateUniqueIntID() -> Int {
         let maxId = todos.map { $0.id }.max() ?? 0
         return maxId + 1
+    }
+    
+    func IfTodosEmpty() -> Bool {
+        todos.isEmpty ? true : false
     }
 }
 
