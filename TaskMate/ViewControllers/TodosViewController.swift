@@ -82,14 +82,38 @@ extension TodosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mainView.tableView.deselectRow(at: indexPath, animated: true)
         
-        let todo = TodoDataManager.shared.getTodo(at: indexPath)
-        let todoVC = TodoViewController(todo: todo, index: indexPath)
-        //todoVC.delegate = self
+        let todo = TodoDataManager.shared.getTodo(at: indexPath.row)
+        let todoVC = TodoViewController(todo: todo)
+        
         navigationController?.pushViewController(todoVC, animated: true)
         
         navigationItem.backButtonTitle = "Назад"
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   contextMenuConfigurationForRowAt indexPath: IndexPath,
+                   point: CGPoint) -> UIContextMenuConfiguration? {
+
+        let todo = TodoDataManager.shared.getTodo(at: indexPath.row)
         
-        //TodoDataManager.shared.deleteTodo(todo: todo)
+        return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
+            let editAction = UIAction(title: "Редактировать", image: UIImage(systemName: "square.and.pencil")) { _ in
+                let todoVC = TodoViewController(todo: todo)
+                self.navigationController?.pushViewController(todoVC, animated: true)
+            }
+            
+            let shareAction = UIAction(title: "Поделиться", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+                let textToShare = "\(todo.todo): \(todo.todoDescription ?? "")"
+                let activityVC = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                self.present(activityVC, animated: true)
+            }
+            
+            let deleteAction = UIAction(title: "Удалить", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+                TodoDataManager.shared.deleteTodo(todo: todo)
+            }
+            
+            return UIMenu(title: "", children: [editAction, shareAction, deleteAction])
+        }
     }
 }
 
@@ -117,6 +141,7 @@ extension TodosViewController {
             switch result {
             case .success(let todos):
                 TodoDataManager.shared.setTodos(with: todos)
+                //StorageManager.shared.deleteAllTodos()
                 self.setupViews()
                 print("\(todos.count) todos downloaded from core data")
             case .failure(let error):
@@ -176,8 +201,7 @@ extension TodosViewController {
     }
     
     private func showTodoPage() {
-        let todoVC = TodoViewController(todo: nil, index: nil)
-        //todoVC.delegate = self
+        let todoVC = TodoViewController(todo: nil)
         
         navigationController?.pushViewController(todoVC, animated: true)
         navigationItem.backButtonTitle = "Назад"
@@ -197,8 +221,6 @@ extension TodosViewController: TodoCellDelegate {
         var todo = todo
         todo.completed.toggle()
         TodoDataManager.shared.updateTodo(updatedTodo: todo)
-        
-        mainView.tableView.reloadRows(at: [index], with: .automatic)
     }
 }
 

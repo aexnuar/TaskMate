@@ -152,7 +152,6 @@ extension StorageManager {
     //            print("Delete error: \(error.localizedDescription)")
     //        }
     //    }
-    
     func deleteAllTodos() {
         backgroundContext.perform {
             let fetchRequest = TodoCD.fetchRequest()
@@ -183,10 +182,10 @@ extension StorageManager {
         }
     }
     
-        func saveContext() {
-            let context = persistentContainer.viewContext
-            saveContext(context)
-        }
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        saveContext(context)
+    }
     
     //    func saveContext() {
     //        if viewContext.hasChanges {
@@ -217,7 +216,7 @@ extension TodoCD {
         self.todo = todo.todo
         self.todoDescription = todo.todoDescription
         self.completed = todo.completed
-        self.userID = Int64(todo.userID ?? 0)
+        self.userID = Int64(todo.userID)
         self.date = todo.date
     }
 }

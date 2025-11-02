@@ -17,7 +17,7 @@ struct Todo: Codable, Equatable {
     var todo: String
     var todoDescription: String?
     var completed: Bool
-    let userID: Int?
+    let userID: Int
     var date: Date?
     
     enum CodingKeys: String, CodingKey {

@@ -43,7 +43,6 @@ extension TodosView {
         tableView.separatorColor = .customGray
         
         tableView.backgroundColor = .customBlackForBackground
-        
     }
     
     private func setupBottomView() {

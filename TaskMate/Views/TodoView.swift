@@ -28,7 +28,6 @@ class TodoView: UIView {
     func configure(title: String, dateStr: String, description: String) {
         todoTextField.text = title
         todoDescriptionTextView.text = description
-        
         todoDateLabel.text = dateStr
     }
     
@@ -70,14 +69,27 @@ extension TodoView {
     
     func getDate() -> Date {
         let dateString = todoDateLabel.text ?? ""
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
-        return dateFormatter.date(from: dateString) ?? Date()
+        return DateFormatterHelper.shared.formatToDate(from: dateString) ?? Date()
     }
     
     func getDescription() -> String {
         todoDescriptionTextView.text ?? ""
     }
-    
 }
+
+// MARK: - TextView methods
+extension TodoView {
+    func clearDescriptionText() {
+        todoDescriptionTextView.text = ""
+    }
+    
+    func showDescriptionText() {
+        todoDescriptionTextView.text = "Notes"
+    }
+    
+    func setDescriptionTextViewDelegate(_ delegate: UITextViewDelegate) {
+        todoDescriptionTextView.delegate = delegate
+    }
+}
+
 

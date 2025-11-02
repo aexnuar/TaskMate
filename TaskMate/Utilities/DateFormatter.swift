@@ -14,32 +14,25 @@ class DateFormatterHelper {
     private init() {}
     
     func formatDate(from date: Date?) -> String {
-        guard let date = date else { return "Add date" }
+        
+        guard let date = date else { return "" }
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
-        formatter.locale = Locale(identifier: "ru_RU") // check
+        formatter.locale = Locale(identifier: "ru_RU")
         
-        let dateStr = formatter.string(from: date)
-        return dateStr
+        return formatter.string(from: date)
     }
     
-//    func formatDateFromStr(from date: String?) -> String {
-//        guard let date = date else { return "Add date" }
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd/MM/yy"
-//        formatter.locale = Locale(identifier: "ru_RU") // check
-//        
-//        let dateStr = formatter.string(from: date)
-//        return dateStr
-//    }
+    func formatToDate(from string: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        formatter.locale = Locale(identifier: "ru_RU")
+        
+        return formatter.date(from: string)
+    }
     
-//    func formatDateForMainPage(from date: Date?) -> String {
-//        guard let date = date else { return "n/a" }
-//        
-//        let formatter = DateFormatter()
-//        formatter.dateStyle = .medium
-//        formatter.timeStyle = .none
-//        
-//        return formatter.string(from: date)
+//    func getTodayDate() -> String {
+//        let today = Date()
+//        return formatDate(from: today)
 //    }
 }

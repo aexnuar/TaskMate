@@ -19,6 +19,10 @@ class TodoDataManager {
     private var filter: String = ""
     private var dataUpdateDelegates: [TodoDataUpdateDelegate] = []
     
+    private var currentTodos: [Todo] {
+        filter.isEmpty ? todos : getFilteredTodos(request: filter)
+    }
+    
     private init() {}
     
     func setTodos(with todos: [Todo]) {
@@ -50,15 +54,16 @@ class TodoDataManager {
         todos.remove(at: index)
         // users.contains(where: { $0.id == 2 })
         
+        callDataUpdateDelegates()
         StorageManager.shared.deleteTodo(todo)
     }
     
-    func getTodo(at indexPath: IndexPath) -> Todo { 
-        todos[indexPath.row]
+    func getTodo(at index: Int) -> Todo {
+        currentTodos[index]
     }
     
     func getTodosCount() -> Int {
-        todos.count
+        currentTodos.count
     }
     
     func getUncompletedTodosCount() -> Int {
@@ -89,13 +94,13 @@ extension TodoDataManager {
     }
     
     func addDataUpdateDelegate(delegate: TodoDataUpdateDelegate) {
-        delegate.onToDoDataUpdate(todos: filter.isEmpty ? todos : getFilteredTodos(request: filter), request: filter)
+        delegate.onToDoDataUpdate(todos: currentTodos, request: filter)
         dataUpdateDelegates.append(delegate)
     }
     
     func callDataUpdateDelegates() {
         dataUpdateDelegates.forEach {
-            $0.onToDoDataUpdate(todos: filter.isEmpty ? todos : getFilteredTodos(request: filter), request: filter)
+            $0.onToDoDataUpdate(todos: currentTodos, request: filter)
         }
     }
     
