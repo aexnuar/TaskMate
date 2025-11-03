@@ -118,4 +118,11 @@ extension TodoViewController: UITextViewDelegate {
             mainView.clearDescriptionText()
         }
     }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView.text == "" {
+            mainView.showDescriptionText()
+        }
+        return true
+    }
 }

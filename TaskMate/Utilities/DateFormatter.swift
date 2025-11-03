@@ -11,11 +11,13 @@ class DateFormatterHelper {
     
     static let shared = DateFormatterHelper()
     
+    private let todayDate = Date()
+    
     private init() {}
     
     func formatDate(from date: Date?) -> String {
         
-        guard let date = date else { return "" }
+        guard let date = date else { return getTodayDate() }
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
         formatter.locale = Locale(identifier: "ru_RU")
@@ -31,8 +33,7 @@ class DateFormatterHelper {
         return formatter.date(from: string)
     }
     
-//    func getTodayDate() -> String {
-//        let today = Date()
-//        return formatDate(from: today)
-//    }
+    func getTodayDate() -> String {
+        formatDate(from: todayDate)
+    }
 }

@@ -41,7 +41,6 @@ extension TodosView {
         tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .customGray
-        
         tableView.backgroundColor = .customBlackForBackground
     }
     

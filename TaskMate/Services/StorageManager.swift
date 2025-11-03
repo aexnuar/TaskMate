@@ -22,36 +22,16 @@ class StorageManager {
         return container
     }()
     
-    //    private let viewContext: NSManagedObjectContext
-    
-    //    private var backgroundContext: NSManagedObjectContext {
-    //        persistentContainer.newBackgroundContext()
-    //    }
-    
     private lazy var backgroundContext: NSManagedObjectContext = {
         let context = persistentContainer.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.automaticallyMergesChangesFromParent = true
         return context
     }()
-    
-    //    private init() {
-    //        viewContext = persistentContainer.viewContext
-    //    }
 }
 
 // MARK: - CRUD methods
 extension StorageManager {
-    //    func createTodo(_ todo: Todo) {
-    //        let context = backgroundContext
-    //
-    //        context.perform {
-    //            let todoCD = TodoCD(context: context)
-    //            todoCD.update(from: todo)
-    //            self.saveContext(context)
-    //        }
-    //    }
-    
     func createTodo(_ todo: Todo) {
         backgroundContext.perform {
             let todoCD = TodoCD(context: self.backgroundContext)
@@ -72,23 +52,6 @@ extension StorageManager {
         }
     }
     
-    //    func updateTodo(_ todo: Todo) {
-    //        let fetchRequest = TodoCD.fetchRequest()
-    //        fetchRequest.predicate = NSPredicate(format: "id == %d", todo.id)
-    //
-    //        do {
-    //            let results = try self.viewContext.fetch(fetchRequest)
-    //            if let todoCD = results.first {
-    //                todoCD.update(from: todo)
-    //                saveContext()
-    //            } else {
-    //                print("Todo \(todo.id) is not found")
-    //            }
-    //        } catch {
-    //            print("Update todo error \(error.localizedDescription)")
-    //        }
-    //    }
-    
     func updateTodo(_ todo: Todo) {
         backgroundContext.perform {
             let fetchRequest = TodoCD.fetchRequest()
@@ -108,21 +71,6 @@ extension StorageManager {
         }
     }
     
-    //    func deleteTodo(_ todo: Todo) {
-    //        let fetchRequest = TodoCD.fetchRequest()
-    //        fetchRequest.predicate = NSPredicate(format: "id == %d", todo.id)
-    //
-    //        do {
-    //            let results = try self.viewContext.fetch(fetchRequest)
-    //            for todoCD in results {
-    //                self.viewContext.delete(todoCD)
-    //            }
-    //            saveContext()
-    //        } catch {
-    //            print("Delete todo error: \(error.localizedDescription)")
-    //        }
-    //    }
-    
     func deleteTodo(_ todo: Todo) {
         backgroundContext.perform {
             let fetchRequest = TodoCD.fetchRequest()
@@ -140,18 +88,6 @@ extension StorageManager {
         }
     }
     
-    //    func deleteAllTodos() {
-    //        let fetchRequest = TodoCD.fetchRequest()
-    //        do {
-    //            let results = try viewContext.fetch(fetchRequest)
-    //            for todoCD in results {
-    //                viewContext.delete(todoCD)
-    //            }
-    //            saveContext()
-    //        } catch {
-    //            print("Delete error: \(error.localizedDescription)")
-    //        }
-    //    }
     func deleteAllTodos() {
         backgroundContext.perform {
             let fetchRequest = TodoCD.fetchRequest()
@@ -166,7 +102,6 @@ extension StorageManager {
             }
         }
     }
-    
 }
 
 // MARK: - CoreData saving support
@@ -186,17 +121,6 @@ extension StorageManager {
         let context = persistentContainer.viewContext
         saveContext(context)
     }
-    
-    //    func saveContext() {
-    //        if viewContext.hasChanges {
-    //            do {
-    //                try viewContext.save()
-    //            } catch {
-    //                let nserror = error as NSError
-    //                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-    //            }
-    //        }
-    //    }
 }
 
 extension Todo {

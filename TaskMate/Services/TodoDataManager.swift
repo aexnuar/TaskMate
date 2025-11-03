@@ -86,7 +86,7 @@ class TodoDataManager {
     }
 }
 
-// MARK: - Filtares and delegate TODO updates
+// MARK: - Filtares and delegate Todo updates
 extension TodoDataManager {
     func setTodosFilter(request: String) {
         filter = request

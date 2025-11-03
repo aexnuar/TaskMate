@@ -11,7 +11,6 @@ class TodosViewController: UIViewController {
     
     private lazy var mainView = TodosView()
     private let viewModel: TodosViewModel
-    
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func loadView() {
@@ -86,7 +85,6 @@ extension TodosViewController: UITableViewDelegate {
         let todoVC = TodoViewController(todo: todo)
         
         navigationController?.pushViewController(todoVC, animated: true)
-        
         navigationItem.backButtonTitle = "Назад"
     }
     
@@ -141,7 +139,6 @@ extension TodosViewController {
             switch result {
             case .success(let todos):
                 TodoDataManager.shared.setTodos(with: todos)
-                //StorageManager.shared.deleteAllTodos()
                 self.setupViews()
                 print("\(todos.count) todos downloaded from core data")
             case .failure(let error):
@@ -153,14 +150,15 @@ extension TodosViewController {
     private func setupNavigationBar() {
         title = "Задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always // check!
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.tintColor = .customYellowForButton
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .customBlackForBackground
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.customWhiteForFont]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.customWhiteForFont]
-        
+    
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
@@ -181,6 +179,7 @@ extension TodosViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         
         searchController.searchBar.searchTextField.textColor = .customWhiteForFont
+        searchController.searchBar.keyboardAppearance = .dark
         let placeholderText = "Search"
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white.withAlphaComponent(0.4)
@@ -223,10 +222,3 @@ extension TodosViewController: TodoCellDelegate {
         TodoDataManager.shared.updateTodo(updatedTodo: todo)
     }
 }
-
-// MARK: - TodoViewUpdateDelegate
-//extension TodosViewController: TodoViewUpdateDelegate {
-//    func todoViewDidRequestReload(at index: IndexPath) {
-//        mainView.tableView.reloadRows(at: [index], with: .automatic)
-//    }
-//}
