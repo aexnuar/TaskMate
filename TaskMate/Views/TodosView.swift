@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodosView: UIView {
+final class TodosView: UIView {
     
     let tableView = UITableView()
     

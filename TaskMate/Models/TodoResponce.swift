@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct TodoResponce: Codable, Equatable {
+struct TodoResponce: Decodable, Equatable {
     let todos: [Todo]
     let total, skip, limit: Int
 }
 
-struct Todo: Codable, Equatable {
+struct Todo: Decodable, Equatable {
     let id: Int
     var todo: String
     var todoDescription: String?

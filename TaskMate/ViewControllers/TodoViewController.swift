@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoViewController: UIViewController {
+final class TodoViewController: UIViewController {
     
     private lazy var mainView = TodoView()
     private var todo: Todo?

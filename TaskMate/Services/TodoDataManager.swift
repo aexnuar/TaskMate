@@ -11,7 +11,7 @@ protocol TodoDataUpdateDelegate {
     func onToDoDataUpdate(todos: [Todo], request: String)
 }
 
-class TodoDataManager {
+final class TodoDataManager {
     
     static let shared = TodoDataManager()
     

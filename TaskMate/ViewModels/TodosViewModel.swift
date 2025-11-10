@@ -5,7 +5,7 @@
 //  Created by aex on 28.10.2025.
 //
 
-class TodosViewModel {
+final class TodosViewModel {
 
     var onDataUpdated: (() -> Void)?
     

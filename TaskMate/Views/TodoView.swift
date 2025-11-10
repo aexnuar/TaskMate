@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoView: UIView {
+final class TodoView: UIView {
     
     private let todoTextField = UITextField()
     private let todoDateLabel = UILabel(isBold: false, fontSize: 12)

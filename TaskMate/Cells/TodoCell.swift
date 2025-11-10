@@ -11,7 +11,7 @@ protocol TodoCellDelegate: AnyObject {
     func toogleToDoCompleted(for todo: Todo, at index: IndexPath)
 }
 
-class TodoCell: UITableViewCell {
+final class TodoCell: UITableViewCell {
     
     static let identifier = "TodoCell"
     
